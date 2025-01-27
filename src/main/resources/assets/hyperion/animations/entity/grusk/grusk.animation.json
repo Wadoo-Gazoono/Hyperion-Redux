@@ -1,0 +1,59 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"the_dog": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": {
+						"vector": [60, 0, 0],
+						"easing": "linear"
+					},
+					"position": {
+						"vector": [0, 3, 6],
+						"easing": "linear"
+					}
+				},
+				"headRoot": {
+					"rotation": {
+						"vector": [89.99998, -80, -89.99998],
+						"easing": "linear"
+					}
+				},
+				"armLeft": {
+					"rotation": {
+						"vector": [-60, 0, 0],
+						"easing": "linear"
+					},
+					"position": {
+						"vector": [0, 0, 2],
+						"easing": "linear"
+					}
+				},
+				"legLeft": {
+					"rotation": {
+						"vector": [-60, 0, 0],
+						"easing": "linear"
+					}
+				},
+				"armRight": {
+					"rotation": {
+						"vector": [-60, 0, 0],
+						"easing": "linear"
+					},
+					"position": {
+						"vector": [0, 0, 2],
+						"easing": "linear"
+					}
+				},
+				"legRight": {
+					"rotation": {
+						"vector": [-60, 0, 0],
+						"easing": "linear"
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}
