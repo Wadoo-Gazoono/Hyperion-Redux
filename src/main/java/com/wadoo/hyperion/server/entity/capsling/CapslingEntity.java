@@ -183,7 +183,7 @@ public class CapslingEntity extends HyperionMob implements GeoEntity, Bucketable
         if (player.getItemInHand(hand).is(Items.MAGMA_CREAM) && this.getItemBySlot(EquipmentSlot.MAINHAND).is(Items.AIR)){
             this.setItemInHand(InteractionHand.MAIN_HAND,new ItemStack(Items.MAGMA_CREAM,1));
             player.getItemInHand(hand).shrink(1);
-            return InteractionResult.CONSUME;
+            return InteractionResult.SUCCESS;
         }
         if (player.getItemInHand(hand).is(Items.LAVA_BUCKET)) {
             return this.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
