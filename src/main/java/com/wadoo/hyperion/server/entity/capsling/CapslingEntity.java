@@ -77,6 +77,7 @@ public class CapslingEntity extends HyperionMob implements GeoEntity, Bucketable
     private static final EntityDataAccessor<Boolean> OPEN = SynchedEntityData.defineId(CapslingEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> EAT_TIMER = SynchedEntityData.defineId(CapslingEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> EAT_COOLDOWN = SynchedEntityData.defineId(CapslingEntity.class, EntityDataSerializers.INT);
+
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(CapslingEntity.class, EntityDataSerializers.BOOLEAN);
     /*
     0. Idle
@@ -150,9 +151,6 @@ public class CapslingEntity extends HyperionMob implements GeoEntity, Bucketable
         this.goalSelector.addGoal(2, new CapslingTemptGoal(this, 1.0D, Ingredient.of(Items.MAGMA_CREAM), false));
         this.goalSelector.addGoal(6, new AvoidEntityGoal<>(this, Player.class, 6F, 1, 1.2));
         //this.goalSelector.addGoal(6, new AvoidEntityGoal<>(this, GruskEntity.class, 6F, 1, 1.2));
-
-        //this.goalSelector.addGoal(9, new CapslingSocializeGoal(this));
-
     }
 
     @Override

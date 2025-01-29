@@ -3,14 +3,11 @@ package com.wadoo.hyperion.server.entity.capsling;
 
 import com.wadoo.hyperion.server.ai.AnimatedGoal;
 import com.wadoo.hyperion.server.entity.HyperionMob;
-import com.wadoo.hyperion.server.entity.capsling.CapslingEntity;
 import com.wadoo.hyperion.server.registry.ItemHandler;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 class CapslingEatGoal extends AnimatedGoal {
     public CapslingEntity capsling;

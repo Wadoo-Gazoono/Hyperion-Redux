@@ -28,6 +28,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -37,10 +38,9 @@ import org.slf4j.Logger;
 @Mod(Hyperion.MODID)
 public class Hyperion
 {
-    // Define mod id in a common place for everything to reference
     public static final String MODID = "hyperion";
-    // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
+    public static SimpleChannel NETWORK;
 
     public Hyperion(FMLJavaModLoadingContext context)
     {

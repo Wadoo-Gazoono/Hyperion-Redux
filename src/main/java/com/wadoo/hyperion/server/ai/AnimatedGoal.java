@@ -7,6 +7,8 @@ public class AnimatedGoal extends Goal {
     public HyperionMob entity;
     public int state;
     public String animation;
+
+    //Set to -1 for Looping Animation
     public int animLength;
 
     public int timer = 0;
@@ -38,12 +40,17 @@ public class AnimatedGoal extends Goal {
     @Override
     public void tick() {
         super.tick();
-        if(this.timer <= this.animLength){
-            timer++;
-            doEffects(timer);
+        if(animLength > 0) {
+            if (this.timer <= this.animLength) {
+                timer++;
+                doEffects(timer);
+            } else {
+                stop();
+            }
         }
         else{
-            stop();
+            timer++;
+            doEffects(timer);
         }
     }
 
