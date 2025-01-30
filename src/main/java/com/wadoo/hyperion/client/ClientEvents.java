@@ -2,6 +2,7 @@ package com.wadoo.hyperion.client;
 
 import com.wadoo.hyperion.Hyperion;
 import com.wadoo.hyperion.client.render.entity.CapslingRenderer;
+import com.wadoo.hyperion.client.render.entity.GruskRenderer;
 import com.wadoo.hyperion.server.registry.EntityHandler;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -13,5 +14,7 @@ public class ClientEvents {
     @SubscribeEvent
     public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(EntityHandler.CAPSLING.get(), CapslingRenderer::new);
+        event.registerEntityRenderer(EntityHandler.GRUSK.get(), GruskRenderer::new);
+
     }
 }

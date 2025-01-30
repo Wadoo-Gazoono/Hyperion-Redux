@@ -1,10 +1,16 @@
 package com.wadoo.hyperion.server.entity;
 
+import com.wadoo.hyperion.server.ability.Ability;
+import com.wadoo.hyperion.server.ability.AbilityType;
 import com.wadoo.hyperion.server.ai.MMPathNavigatorGround;
 import com.wadoo.hyperion.server.ai.SmartBodyHelper;
+import com.wadoo.hyperion.server.capability.AbilityCapability;
+import com.wadoo.hyperion.server.registry.AbilityHandler;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -26,7 +32,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 
-public class HyperionMob extends Monster implements GeoEntity {
+public abstract class HyperionMob extends Monster implements GeoEntity {
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
 
@@ -36,6 +42,12 @@ public class HyperionMob extends Monster implements GeoEntity {
     private static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(HyperionMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> TRANSITION_STATE = SynchedEntityData.defineId(HyperionMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> CAN_LOOK = SynchedEntityData.defineId(HyperionMob.class, EntityDataSerializers.BOOLEAN);
+
+    protected boolean dropAfterDeathAnim = true;
+    private int killDataRecentlyHit;
+    private DamageSource killDataCause;
+    private Player killDataAttackingPlayer;
+    private boolean playsHurtAnimation = true;
 
     public HyperionMob(EntityType<? extends HyperionMob> monster, Level level) {
         super(monster, level);
@@ -153,4 +165,73 @@ public class HyperionMob extends Monster implements GeoEntity {
     public Vec3 rotateModelVecAlongYAxis(Vec3 i){
         return i.yRot((float)Math.toRadians(-yBodyRot)).add(this.position());
     }
+
+    public Vec3 rotateModelVecAlongYAxis(float x, float y, float z){
+        return new Vec3(x,y,z).yRot((float)Math.toRadians(-yBodyRot)).add(this.position());
+    }
+
+    public Vec3 rotateModelVecAlongYAxisWithoutPosition(Vec3 i){
+        return i.yRot((float)Math.toRadians(-getYRot()));
+    }
+
+    public Vec3 rotateModelVecAlongYAxisWithoutPosition(float x, float y, float z){
+        return new Vec3(x,y,z).yRot((float)Math.toRadians(-getYRot()));
+    }
+
+    public AbilityType<?, ?>[] getAbilities() {
+        return new AbilityType[]{};
+    }
+
+    public AbilityCapability.IAbilityCapability getAbilityCapability() {
+        return AbilityHandler.INSTANCE.getAbilityCapability(this);
+    }
+
+    public Ability getActiveAbility() {
+        AbilityCapability.IAbilityCapability capability = getAbilityCapability();
+        if (capability == null) return null;
+        return getAbilityCapability().getActiveAbility();
+    }
+
+    public AbilityType getActiveAbilityType() {
+        Ability ability = getActiveAbility();
+        if (ability == null) return null;
+        return ability.getAbilityType();
+    }
+
+    public Ability getAbility(AbilityType abilityType) {
+        AbilityCapability.IAbilityCapability capability = getAbilityCapability();
+        if (capability == null) return null;
+        return getAbilityCapability().getAbilityMap().get(abilityType);
+    }
+
+    public void sendAbilityMessage(AbilityType abilityType) {
+        AbilityHandler.INSTANCE.sendAbilityMessage(this, abilityType);
+    }
+
+    @Override
+    public void die(DamageSource cause) {
+        if (!this.dead) {
+            killDataCause = cause;
+            killDataRecentlyHit = this.lastHurtByPlayerTime;
+            killDataAttackingPlayer = lastHurtByPlayer;
+        }
+        super.die(cause);
+    }
+
+    @Override
+    protected void tickDeath() { // Copied from entityLiving
+        ++this.deathTime;
+        int deathDuration = getDeathDuration();
+        if (this.deathTime >= deathDuration && !this.level().isClientSide()) {
+            lastHurtByPlayer = killDataAttackingPlayer;
+            lastHurtByPlayerTime = killDataRecentlyHit;
+            if (dropAfterDeathAnim && killDataCause != null) {
+                dropAllDeathLoot(killDataCause);
+            }
+            this.level().broadcastEntityEvent(this, (byte)60);
+            this.remove(Entity.RemovalReason.KILLED);
+        }
+    }
+
+    protected abstract int getDeathDuration();
 }

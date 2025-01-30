@@ -1,12 +1,16 @@
 package com.wadoo.hyperion;
 
 import com.mojang.logging.LogUtils;
+import com.wadoo.hyperion.client.ClientProxy;
 import com.wadoo.hyperion.server.ServerEvents;
+import com.wadoo.hyperion.server.network.ServerProxy;
+import com.wadoo.hyperion.server.registry.CapabilityHandler;
 import com.wadoo.hyperion.server.registry.CreativeTabHandler;
 import com.wadoo.hyperion.server.registry.EntityHandler;
 import com.wadoo.hyperion.server.registry.ItemHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -23,6 +27,7 @@ import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -41,9 +46,14 @@ public class Hyperion
     public static final String MODID = "hyperion";
     private static final Logger LOGGER = LogUtils.getLogger();
     public static SimpleChannel NETWORK;
+    public static ServerProxy PROXY;
 
     public Hyperion(FMLJavaModLoadingContext context)
     {
+
+        PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
+
+
         IEventBus bus = context.getModEventBus();
         bus.addListener(this::commonSetup);
         bus.addListener(ServerEvents::registerEntityAttributes);
@@ -52,7 +62,10 @@ public class Hyperion
         EntityHandler.ENTITIES.register(bus);
         ItemHandler.ITEMS.register(bus);
         CreativeTabHandler.TABS.register(bus);
+        bus.addListener(CapabilityHandler::registerCapabilities);
 
+        MinecraftForge.EVENT_BUS.register(new ServerEvents());
+        MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, CapabilityHandler::attachEntityCapability);
     }
 
 

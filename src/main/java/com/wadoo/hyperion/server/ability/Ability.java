@@ -5,6 +5,7 @@ package com.wadoo.hyperion.server.ability;
 
 import com.wadoo.hyperion.server.capability.AbilityCapability;
 import com.wadoo.hyperion.server.entity.HyperionMob;
+import com.wadoo.hyperion.server.registry.AbilityHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.Entity;

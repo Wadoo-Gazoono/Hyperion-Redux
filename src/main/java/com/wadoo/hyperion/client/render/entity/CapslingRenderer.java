@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.wadoo.hyperion.client.layer.entity.capsling.CapslingGlowLayer;
+import com.wadoo.hyperion.client.layer.entity.capsling.CapslingLeadLayer;
 import com.wadoo.hyperion.client.model.entity.CapslingModel;
 import com.wadoo.hyperion.server.entity.capsling.CapslingEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -25,6 +26,8 @@ public class CapslingRenderer extends GeoEntityRenderer<CapslingEntity> {
         this.shadowRadius = 0.16788F;
 
         addRenderLayer(new CapslingGlowLayer<>(this));
+        addRenderLayer(new CapslingLeadLayer<>(this));
+
         this.addRenderLayer(new BlockAndItemGeoLayer<>(this) {
             @Nullable
             @Override

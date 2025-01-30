@@ -1,0 +1,12 @@
+{
+  "itemGroup.hyperion_tab": "Hyperion",
+
+  "entity.hyperion.capsling": "Capsling",
+  "entity.hyperion.grusk": "Grusk",
+
+  "item.hyperion.capsling_spawn_egg": "Capsling Spawn Egg",
+  "item.hyperion.grusk_spawn_egg": "Grusk Spawn Egg",
+
+  "item.hyperion.agralite_sheet": "Agralite Sheet",
+  "item.hyperion.mechanical_innards": "Mechanical Innards"
+}

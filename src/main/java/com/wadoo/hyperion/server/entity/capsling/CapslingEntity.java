@@ -1,6 +1,7 @@
 package com.wadoo.hyperion.server.entity.capsling;
 
 
+import com.wadoo.hyperion.server.ability.AbilityType;
 import com.wadoo.hyperion.server.entity.HyperionMob;
 import com.wadoo.hyperion.server.registry.ItemHandler;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -36,6 +37,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.Nullable;
@@ -94,6 +96,10 @@ public class CapslingEntity extends HyperionMob implements GeoEntity, Bucketable
 
     public CapslingEntity(EntityType<? extends HyperionMob> type, Level level) {
         super(type, level);
+        this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.LAVA, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
     }
 
     @Override
@@ -158,6 +164,21 @@ public class CapslingEntity extends HyperionMob implements GeoEntity, Bucketable
         return this.geoCache;
     }
 
+    @Override
+    protected int getDeathDuration() {
+        return 20;
+    }
+
+    @Override
+    public AbilityType getHurtAbility() {
+        return null;
+    }
+
+    @Override
+    public AbilityType getDeathAbility() {
+        return null;
+    }
+
 
     @Override
     public void tick() {
@@ -174,6 +195,32 @@ public class CapslingEntity extends HyperionMob implements GeoEntity, Bucketable
 
         }
     }
+
+    @Override
+    public void load(CompoundTag tag) {
+        super.load(tag);
+        setEatCooldown(tag.getInt("eatCooldown"));
+        setEatTimer(tag.getInt("eatTimer"));
+        setOpen(tag.getBoolean("open"));
+        setFromBucket(tag.getBoolean("fromBucket"));
+        if(fromBucket()) setPersistenceRequired();
+    }
+
+    @Override
+    public boolean save(CompoundTag tag) {
+        tag.putBoolean("open", getOpen());
+        tag.putBoolean("fromBucket", fromBucket());
+        tag.putInt("eatTimer", getEatTimer());
+        tag.putInt("eatCooldown", getEatCooldown());
+        return super.save(tag);
+
+    }
+
+    @Override
+    public boolean requiresCustomPersistence() {
+        return this.fromBucket();
+    }
+
 
 
     @Override
@@ -263,5 +310,15 @@ public class CapslingEntity extends HyperionMob implements GeoEntity, Bucketable
             return Optional.empty();
 
         }
+    }
+
+    @Override
+    public boolean canBeLeashed(Player player) {
+        return true;
+    }
+
+    @Override
+    protected Vec3 getLeashOffset() {
+        return this.rotateModelVecAlongYAxisWithoutPosition(new Vec3(0f,10/16f, -3F/16f));
     }
 }

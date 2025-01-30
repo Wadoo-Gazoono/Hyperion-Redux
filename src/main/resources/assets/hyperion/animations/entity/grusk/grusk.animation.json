@@ -166,7 +166,7 @@
 						}
 					}
 				},
-				"headroot": {
+				"headRoot": {
 					"rotation": {
 						"0.0": {
 							"vector": [0, 0, 5],
@@ -708,7 +708,7 @@
 						}
 					}
 				},
-				"headroot": {
+				"headRoot": {
 					"rotation": {
 						"0.0": {
 							"vector": [0, 0, 5],
@@ -1276,19 +1276,19 @@
 							"vector": [-33.69, 0, 0],
 							"easing": "linear"
 						},
-						"1.0833": {
+						"1.4167": {
 							"vector": [-35, 0, 0],
 							"easing": "linear"
 						},
-						"1.2917": {
+						"1.625": {
 							"vector": [-32.5, -12.5, 10],
 							"easing": "linear"
 						},
-						"1.4167": {
+						"1.75": {
 							"vector": [-32.5, -12.5, 10],
 							"easing": "linear"
 						},
-						"1.5417": {
+						"1.875": {
 							"vector": [-32.5, -12.5, 10],
 							"easing": "linear"
 						},
@@ -1306,23 +1306,23 @@
 							"vector": [0, 0, 0],
 							"easing": "linear"
 						},
-						"1.0833": {
+						"1.4167": {
 							"vector": [0, 0, 0],
 							"easing": "linear"
 						},
-						"1.1667": {
+						"1.5": {
 							"vector": [-0.16, 0.50194, 0.08134],
 							"easing": "linear"
 						},
-						"1.2917": {
+						"1.625": {
 							"vector": [-0.40958, 0.10975, -0.26496],
 							"easing": "linear"
 						},
-						"1.4167": {
+						"1.75": {
 							"vector": [-0.40958, 0.10975, -0.26496],
 							"easing": "linear"
 						},
-						"1.5417": {
+						"1.875": {
 							"vector": [0, 0, 0],
 							"easing": "linear"
 						},
@@ -1376,7 +1376,7 @@
 						}
 					}
 				},
-				"headroot": {
+				"headRoot": {
 					"rotation": {
 						"0.0": {
 							"vector": [0, 0, 5],
@@ -1726,7 +1726,7 @@
 						}
 					}
 				},
-				"headroot": {
+				"headRoot": {
 					"rotation": {
 						"vector": [0, 0, 5],
 						"easing": "linear"
@@ -2089,7 +2089,7 @@
 						}
 					}
 				},
-				"headroot": {
+				"headRoot": {
 					"rotation": {
 						"0.0": {
 							"vector": [0, 0, 5],
@@ -2662,7 +2662,7 @@
 						"easing": "linear"
 					}
 				},
-				"headroot": {
+				"headRoot": {
 					"rotation": {
 						"0.0": {
 							"vector": [22.5, 0, 20],
@@ -3164,7 +3164,7 @@
 						"easing": "linear"
 					}
 				},
-				"headroot": {
+				"headRoot": {
 					"rotation": {
 						"0.0": {
 							"vector": [63.29935, -42.26715, -82.14577],
@@ -3639,7 +3639,7 @@
 						}
 					}
 				},
-				"headroot": {
+				"headRoot": {
 					"rotation": {
 						"vector": [22.5, 0, 20],
 						"easing": "linear"
@@ -3949,7 +3949,7 @@
 						}
 					}
 				},
-				"headroot": {
+				"headRoot": {
 					"rotation": {
 						"vector": [22.5, 0, 20],
 						"easing": "linear"

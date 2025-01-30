@@ -6,6 +6,7 @@ import com.wadoo.hyperion.Hyperion;
 import com.wadoo.hyperion.server.ability.Ability;
 import com.wadoo.hyperion.server.ability.AbilityType;
 import com.wadoo.hyperion.server.entity.HyperionMob;
+import com.wadoo.hyperion.server.registry.CapabilityHandler;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
