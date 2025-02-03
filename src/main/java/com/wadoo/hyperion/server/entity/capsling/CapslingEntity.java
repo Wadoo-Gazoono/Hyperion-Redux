@@ -169,16 +169,6 @@ public class CapslingEntity extends HyperionMob implements GeoEntity, Bucketable
         return 20;
     }
 
-    @Override
-    public AbilityType getHurtAbility() {
-        return null;
-    }
-
-    @Override
-    public AbilityType getDeathAbility() {
-        return null;
-    }
-
 
     @Override
     public void tick() {

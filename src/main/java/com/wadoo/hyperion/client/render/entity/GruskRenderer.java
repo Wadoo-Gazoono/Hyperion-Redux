@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.wadoo.hyperion.client.layer.entity.capsling.CapslingGlowLayer;
 import com.wadoo.hyperion.client.layer.entity.capsling.CapslingLeadLayer;
+import com.wadoo.hyperion.client.layer.entity.capsling.GruskGlowLayer;
 import com.wadoo.hyperion.client.model.entity.CapslingModel;
 import com.wadoo.hyperion.client.model.entity.GruskModel;
 import com.wadoo.hyperion.server.entity.capsling.CapslingEntity;
@@ -25,7 +26,8 @@ public class GruskRenderer extends GeoEntityRenderer<GruskEntity> {
 
     public GruskRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new GruskModel());
-        this.shadowRadius = 0.16788F;
+        this.shadowRadius = 0.67788F;
+        addRenderLayer(new GruskGlowLayer<>(this));
 
     }
 

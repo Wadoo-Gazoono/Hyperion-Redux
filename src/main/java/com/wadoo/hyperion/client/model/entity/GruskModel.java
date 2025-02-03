@@ -45,11 +45,26 @@ public class GruskModel extends DefaultedEntityGeoModel<GruskEntity> {
 
 
         CoreGeoBone head = getAnimationProcessor().getBone("headRoot");
+
+        int lookAmount = (int)getAnimationProcessor().getBone("lookControl").getPosX();
+
         EntityModelData entityData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
 
-        if (head != null) {
-            head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
-            head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
+        switch (lookAmount){
+            case -1:
+                break;
+            case 0:
+                if (head != null && !animatable.isDeadOrDying()) {
+                    head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
+                }
+                break;
+            case 1:
+                if (head != null && !animatable.isDeadOrDying()) {
+                    head.setRotY(entityData.netHeadYaw() * Mth.DEG_TO_RAD);
+                    head.setRotX(entityData.headPitch() * Mth.DEG_TO_RAD);
+                }
+            break;
         }
+
     }
 }
